@@ -1,0 +1,22 @@
+server:
+  port: 8762
+
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///D:/IntelliJ_Projects/micoservice-experiment/config/
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 30
