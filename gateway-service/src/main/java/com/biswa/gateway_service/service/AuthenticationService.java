@@ -4,6 +4,7 @@ import com.biswa.gateway_service.dto.LoginUserDto;
 import com.biswa.gateway_service.dto.RegisterUserDto;
 import com.biswa.gateway_service.model.User;
 import com.biswa.gateway_service.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,21 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
-    private final UserRepository userRepository;
+    @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
+    @Autowired
+    private  AuthenticationManager authenticationManager;
 
-    private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationManager authenticationManager;
-
-    public AuthenticationService(
-            UserRepository userRepository,
-            AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder
-    ) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     public User signup(RegisterUserDto input) {
         User user = new User();

@@ -3,13 +3,25 @@ server:
 spring:
   application:
     name: gateway-service
-  profiles:
-    active: dev
+
+
+  r2dbc:
+    url: jdbc:mysql://localhost:3306/userservice
+    username: root
+    password: password
+    pool:
+      enabled: true
+#  profiles:
+#    active: dev
+  security:
+    user:
+      name: biswa
+      password: biswa
   main:
-    web-application-type: reactive
+#    web-application-type: reactive
     allow-bean-definition-overriding: true
-  config:
-    import: "configserver:http://localhost:8762"
+#  config:
+#    import: "configserver:http://localhost:8762"
   cloud:
     gateway:
       routes:
@@ -21,26 +33,43 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/order/**
-
+  datasource:
+    r2dc: true
+    url: jdbc:mysql://localhost:3306/userservice  # URL to your MySQL database
+    username: root                          # Your MySQL username
+    password: password                      # Your MySQL password
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC driver
+    jpa:
+      hibernate:
+        ddl-auto: update                      # Can be set to none, validate, update, or create
+      show-sql: true                          # Enables logging of SQL statements
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5Dialect
 
 security:
-  basic:
-    enabled: false
+  jwt:
+    secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expiration-time: 3600000
 
-  logging:
-    level:
-      org.springframework.cloud.gateway: DEBUG
+#security:
+#  basic:
+#    enabled: false
 
-  discovery:
-    client:
-      simple:
-        instance:
-          instanceId: ${spring.application.name}:${random.value}
+#  logging:
+#    level:
+#      org.springframework.cloud.gateway: DEBUG
+#
+#  discovery:
+#    client:
+#      simple:
+#        instance:
+#          instanceId: ${spring.application.name}:${random.value}
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    preferIpAddress: true
-    lease-renewal-interval-in-seconds: 30
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka
+#  instance:
+#    preferIpAddress: true
+#    lease-renewal-interval-in-seconds: 30

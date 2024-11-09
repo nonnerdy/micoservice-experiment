@@ -2,6 +2,7 @@ package com.biswa.gateway_service.repository;
 
 import com.biswa.gateway_service.model.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
