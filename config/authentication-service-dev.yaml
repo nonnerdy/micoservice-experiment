@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql-db:3307/inventory  # URL to your MySQL database
+    url: jdbc:mysql://mysql-db:3306/userservice  # URL to your MySQL database
     username: root                          # Your MySQL username
     password: password                      # Your MySQL password
     driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC driver
@@ -10,4 +10,9 @@ spring:
       show-sql: true                          # Enables logging of SQL statements
       properties:
         hibernate:
-          dialect: org.hibernate.dialect.MySQL8Dialect
+          dialect: org.hibernate.dialect.MySQL5Dialect
+          
+security:
+  jwt:
+    secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expiration-time: 3600000
